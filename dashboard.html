@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - SharedCart</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <script>
+    if (localStorage.getItem('sharedcart_theme') === 'dark') {
+      document.documentElement.classList.add('dark-mode');
+    }
+  </script>
+</head>
+<body class="bg-light-section">
+  <!-- Session Validation script (runs before body rendering to prevent flash of content) -->
+  <script src="js/storage.js"></script>
+  <script>
+    const user = window.SharedCartStorage.getCurrentUser();
+    if (!user) {
+      window.location.href = 'login.html';
+    }
+  </script>
+
+  <!-- Sticky Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top border-bottom border-light shadow-xs">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+        <div class="logo-icon bg-gradient text-white p-2 rounded-3 d-flex align-items-center justify-content-center shadow-sm">
+          <i class="bi bi-cart-dash-fill fs-4"></i>
+        </div>
+        <span class="logo-text font-outfit fs-3 fw-bold text-dark">Shared<span class="text-primary">Cart</span></span>
+      </a>
+      <div class="d-flex align-items-center gap-3 ms-auto">
+        <button class="btn btn-light border-0 rounded-3 text-secondary p-2" id="darkModeToggle" aria-label="Toggle Dark Mode">
+          <i class="bi bi-moon-fill"></i>
+        </button>
+        <div class="dropdown">
+          <button class="btn btn-outline-light text-dark border-0 dropdown-toggle d-flex align-items-center gap-2" type="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="avatar bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 38px; height: 38px;" id="avatarInitial">
+              U
+            </div>
+            <span class="d-none d-sm-inline fw-semibold text-secondary" id="userNameLabel">User Profile</span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm mt-2 p-2" aria-labelledby="profileDropdown">
+            <li><h6 class="dropdown-header text-muted" id="userEmailLabel">user@example.com</h6></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><button class="dropdown-item text-danger d-flex align-items-center gap-2" id="logoutButton"><i class="bi bi-box-arrow-right"></i> Logout</button></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="container py-5">
+    <!-- Header Summary Card -->
+    <section class="row mb-5">
+      <div class="col-lg-8 text-start mb-3 mb-lg-0">
+        <h1 class="fw-bold font-outfit text-dark" id="welcomeHeading">Welcome back!</h1>
+        <p class="text-muted">Create a new collaborative shopping room or paste a room code to join your group's active cart.</p>
+      </div>
+      <div class="col-lg-4 text-lg-end text-start">
+        <div class="card border-0 shadow-sm rounded-4 p-3 d-inline-flex bg-white flex-row align-items-center gap-3 border-start border-primary border-5 text-start">
+          <div class="bg-primary bg-opacity-10 text-primary p-3 rounded-3">
+            <i class="bi bi-door-open fs-3"></i>
+          </div>
+          <div>
+            <h6 class="text-muted mb-0 small">Active Rooms</h6>
+            <h4 class="fw-bold text-dark mb-0" id="totalRoomsCount">0</h4>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Create and Join Actions -->
+    <section class="row g-4 mb-5">
+      <!-- Create Room -->
+      <div class="col-md-6">
+        <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 h-100 bg-white border-top border-primary border-4">
+          <h3 class="fw-bold font-outfit mb-3"><i class="bi bi-plus-circle-fill text-primary me-2"></i>Create a Room</h3>
+          <p class="text-muted">Set up a shared shopping room and generate a code to invite friends or family members to join.</p>
+          
+          <form id="createRoomForm">
+            <div id="createAlert" class="alert alert-danger d-none rounded-3 py-2 text-start small border-0 mb-3" role="alert"></div>
+            <div class="input-group mb-4">
+              <span class="input-group-text bg-light border-0"><i class="bi bi-tag text-muted"></i></span>
+              <input type="text" class="form-control bg-light border-0 py-3" id="roomNameInput" placeholder="e.g. Roomies Grocery List" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 py-3 rounded-3 fw-semibold shadow-sm btn-hover-effect">
+              Create & Enter Room
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Join Room -->
+      <div class="col-md-6">
+        <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 h-100 bg-white border-top border-secondary border-4">
+          <h3 class="fw-bold font-outfit mb-3"><i class="bi bi-box-arrow-in-right text-secondary me-2"></i>Join existing Room</h3>
+          <p class="text-muted">Have a room code? Enter it below to join the shared cart and start picking products together.</p>
+          
+          <form id="joinRoomForm">
+            <div id="joinAlert" class="alert alert-danger d-none rounded-3 py-2 text-start small border-0 mb-3" role="alert"></div>
+            <div class="input-group mb-4">
+              <span class="input-group-text bg-light border-0"><i class="bi bi-key text-muted"></i></span>
+              <input type="text" class="form-control bg-light border-0 py-3 text-uppercase font-monospace" id="roomCodeInput" placeholder="e.g. GROCERY-2931" required>
+            </div>
+            <button type="submit" class="btn btn-secondary w-100 py-3 rounded-3 fw-semibold shadow-sm btn-hover-effect">
+              Join & Enter Room
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- My Rooms List -->
+    <section>
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold font-outfit text-dark mb-0">My Shopping Rooms</h3>
+        <span class="badge bg-light text-dark border rounded-pill px-3 py-2" id="roomSummaryBadge">0 Rooms Joined</span>
+      </div>
+
+      <!-- Rooms Grid -->
+      <div class="row g-4" id="roomsListGrid">
+        <!-- Room Cards will be rendered dynamically -->
+        <div class="col-12 text-center py-5" id="emptyRoomsState">
+          <div class="text-muted mb-3">
+            <i class="bi bi-cart-x-fill display-1 text-light"></i>
+          </div>
+          <h5 class="fw-bold text-muted">No rooms joined yet</h5>
+          <p class="text-muted col-md-6 mx-auto">Create a room or ask your group for their room code to start building your cart collaboratively.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Scripts -->
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/room.js"></script>
+</body>
+</html>

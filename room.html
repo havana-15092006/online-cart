@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Room - SharedCart</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <script>
+    if (localStorage.getItem('sharedcart_theme') === 'dark') {
+      document.documentElement.classList.add('dark-mode');
+    }
+  </script>
+</head>
+<body class="bg-light-section">
+  <!-- Session Validation script -->
+  <script src="js/storage.js"></script>
+  <script>
+    const user = window.SharedCartStorage.getCurrentUser();
+    if (!user) {
+      window.location.href = 'login.html';
+    }
+  </script>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1060;" id="toastContainer"></div>
+
+  <!-- Sticky Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top border-bottom border-light shadow-xs py-2">
+    <div class="container-fluid px-md-4">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="dashboard.html">
+        <div class="logo-icon bg-gradient text-white p-2 rounded-3 d-flex align-items-center justify-content-center shadow-sm" style="width: 38px; height: 38px;">
+          <i class="bi bi-cart-dash-fill fs-5"></i>
+        </div>
+        <span class="logo-text font-outfit fs-4 fw-bold text-dark">Shared<span class="text-primary">Cart</span></span>
+      </a>
+
+      <!-- Search Input in Header -->
+      <div class="d-none d-md-flex mx-auto" style="width: 40%; max-width: 500px;">
+        <div class="input-group">
+          <span class="input-group-text bg-light border-0"><i class="bi bi-search text-muted"></i></span>
+          <input type="text" class="form-control bg-light border-0" id="headerSearchInput" placeholder="Search products...">
+        </div>
+      </div>
+
+      <!-- Quick Room Info & Cart Trigger -->
+      <div class="d-flex align-items-center gap-2 gap-md-3 ms-auto ms-lg-0">
+        <!-- Room Code Info -->
+        <div class="d-none d-sm-flex flex-column align-items-end me-1 text-end">
+          <span class="text-muted small" style="font-size: 0.75rem;">Active Room</span>
+          <span class="badge bg-primary bg-opacity-10 text-primary font-monospace fs-6 py-1.5 px-2 rounded-2" id="roomCodeBadge">ROOM-CODE</span>
+        </div>
+
+        <!-- Notification Bell Icon (Interactive/Simple Demo) -->
+        <button class="btn btn-light border-0 rounded-3 text-secondary p-2 position-relative" type="button" id="notifBellButton" aria-label="Notifications">
+          <i class="bi bi-bell fs-5"></i>
+          <span class="position-absolute top-1 start-75 translate-middle p-1.5 bg-danger border border-white rounded-circle">
+            <span class="visually-hidden">New notifications</span>
+          </span>
+        </button>
+
+        <!-- Dark Mode Toggle Button -->
+        <button class="btn btn-light border-0 rounded-3 text-secondary p-2 me-1" id="darkModeToggle" aria-label="Toggle Dark Mode">
+          <i class="bi bi-moon-fill"></i>
+        </button>
+
+        <!-- Cart Sidebar Toggle Icon -->
+        <button class="btn btn-primary rounded-3 px-3 py-2 position-relative d-flex align-items-center gap-2 btn-hover-effect" type="button" id="cartSidebarToggleBtn">
+          <i class="bi bi-cart3 fs-5"></i>
+          <span class="badge bg-white text-primary rounded-circle border border-primary d-flex align-items-center justify-content-center" id="cartBadgeCount" style="width: 20px; height: 20px; font-size: 0.75rem; font-weight: 700;">0</span>
+        </button>
+
+        <!-- Profile Dropdown -->
+        <div class="dropdown">
+          <button class="btn btn-outline-light text-dark border-0 dropdown-toggle d-flex align-items-center gap-2" type="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="avatar bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 38px; height: 38px;" id="avatarInitial">U</div>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm mt-2 p-2" aria-labelledby="profileDropdown">
+            <li><h6 class="dropdown-header text-muted" id="userNameLabel">User Name</h6></li>
+            <li><span class="dropdown-item-text text-muted small py-0" id="userEmailLabel">user@example.com</span></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="dashboard.html"><i class="bi bi-grid-fill me-2"></i> All Rooms</a></li>
+            <li><button class="dropdown-item text-danger d-flex align-items-center gap-2" id="logoutButton"><i class="bi bi-box-arrow-right"></i> Logout</button></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Sub-Header Search for Mobile -->
+  <div class="container-fluid py-2 bg-white d-block d-md-none border-bottom border-light">
+    <div class="input-group">
+      <span class="input-group-text bg-light border-0"><i class="bi bi-search text-muted"></i></span>
+      <input type="text" class="form-control bg-light border-0" id="mobileSearchInput" placeholder="Search products...">
+    </div>
+  </div>
+
+  <!-- Workspace Shell -->
+  <div class="container-fluid py-4 px-md-4">
+    <!-- View Switch Tabs (Catalog vs Analytics Dashboard) -->
+    <div class="row mb-4">
+      <div class="col-12 text-start">
+        <ul class="nav nav-pills custom-pills p-1 bg-white rounded-3 shadow-xs d-inline-flex">
+          <li class="nav-item">
+            <button class="nav-link active fw-semibold py-2.5 px-4 rounded-3 d-flex align-items-center gap-2" id="catalogTabBtn" type="button">
+              <i class="bi bi-shop"></i> Product Catalog
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link fw-semibold py-2.5 px-4 rounded-3 d-flex align-items-center gap-2" id="analyticsTabBtn" type="button">
+              <i class="bi bi-graph-up-arrow"></i> Room Analytics
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- MAIN VIEW PANES -->
+    <div class="row g-4">
+      
+      <!-- LEFT SIDEBAR: Room Info, Members & Log (Always visible on desktop, collapses/hides on small layouts if needed) -->
+      <aside class="col-lg-3">
+        <!-- Room Information Card -->
+        <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <div>
+              <h4 class="fw-bold font-outfit text-dark mb-1 text-truncate" id="roomNameTitle">Room Name</h4>
+              <span class="text-muted small">Collaborative shopping space</span>
+            </div>
+            <button class="btn btn-outline-light text-danger border-0 p-1" id="leaveRoomButton" title="Leave Room" aria-label="Leave Room">
+              <i class="bi bi-box-arrow-left fs-4"></i>
+            </button>
+          </div>
+          
+          <div class="bg-light rounded-3 p-3 mb-3 text-start">
+            <span class="text-muted d-block small mb-1">Invite Members:</span>
+            <div class="input-group">
+              <input type="text" class="form-control bg-white font-monospace text-uppercase" id="roomCodeCopyInput" readonly value="ROOM-CODE">
+              <button class="btn btn-primary" type="button" id="copyCodeButton" aria-label="Copy Room Code">
+                <i class="bi bi-copy"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Members Online Card -->
+        <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white text-start">
+          <h5 class="fw-bold font-outfit text-dark mb-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-people-fill text-primary me-2"></i>Members</span>
+            <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill fw-normal fs-6" id="activeMembersCount">0</span>
+          </h5>
+          <ul class="list-unstyled mb-0 d-flex flex-column" id="activeRoomMembersList">
+            <!-- Rendered dynamically -->
+          </ul>
+        </div>
+
+        <!-- Activity Timeline Card -->
+        <div class="card border-0 shadow-sm rounded-4 p-4 bg-white text-start">
+          <h5 class="fw-bold font-outfit text-dark mb-3"><i class="bi bi-clock-history text-secondary me-2"></i>Activity Timeline</h5>
+          <div class="position-relative timeline-container" style="max-height: 300px; overflow-y: auto;">
+            <ul class="list-unstyled mb-0 position-relative ps-2 border-start border-light" id="activityTimelineList">
+              <!-- Rendered dynamically -->
+            </ul>
+          </div>
+        </div>
+      </aside>
+
+      <!-- MIDDLE CONTENT PANEL (CATALOG VIEW OR ANALYTICS DASHBOARD) -->
+      <section class="col-lg-9" id="workspaceMainPanel">
+        
+        <!-- PANE A: Product Catalog Pane -->
+        <div id="catalogPane">
+          
+          <!-- Filters & Sorting Bar -->
+          <div class="card border-0 shadow-sm rounded-4 p-3 mb-4 bg-white text-start">
+            <div class="row align-items-center g-3">
+              <!-- Category filter pill list -->
+              <div class="col-12 col-xl-7">
+                <div class="d-flex flex-wrap gap-2" id="categoryFilterContainer">
+                  <button class="btn btn-outline-primary active px-3 py-1.5 rounded-pill btn-category" data-category="All">All Categories</button>
+                  <button class="btn btn-outline-primary px-3 py-1.5 rounded-pill btn-category" data-category="Grocery">Grocery</button>
+                  <button class="btn btn-outline-primary px-3 py-1.5 rounded-pill btn-category" data-category="Electronics">Electronics</button>
+                  <button class="btn btn-outline-primary px-3 py-1.5 rounded-pill btn-category" data-category="Home Essentials">Home Essentials</button>
+                  <button class="btn btn-outline-primary px-3 py-1.5 rounded-pill btn-category" data-category="Snacks">Snacks</button>
+                </div>
+              </div>
+              
+              <!-- Additional Filters and sorting -->
+              <div class="col-12 col-xl-5">
+                <div class="d-flex flex-wrap gap-2 justify-content-xl-end">
+                  
+                  <!-- Price Filter Trigger -->
+                  <div class="dropdown">
+                    <button class="btn btn-outline-secondary dropdown-toggle px-3 py-1.5 rounded-3 d-flex align-items-center gap-2" type="button" id="priceFilterDropdown" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                      <i class="bi bi-sliders2"></i> Price
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end border-0 shadow-sm p-4" aria-labelledby="priceFilterDropdown" style="width: 300px;">
+                      <h6 class="fw-bold mb-3">Price Filter</h6>
+                      <div class="mb-3">
+                        <label for="priceRangeSlider" class="form-label d-flex justify-content-between">
+                          <span>Max Price:</span>
+                          <span class="fw-bold text-primary" id="priceRangeLabel">$1000</span>
+                        </label>
+                        <input type="range" class="form-range" id="priceRangeSlider" min="0" max="1000" step="5" value="1000">
+                      </div>
+                      <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="filterInStockCheckbox">
+                        <label class="form-check-label" for="filterInStockCheckbox">
+                          In Stock Only
+                        </label>
+                      </div>
+                      <button class="btn btn-primary btn-sm w-100 rounded-2" id="applyFiltersButton">Apply Filters</button>
+                    </div>
+                  </div>
+
+                  <!-- Sort dropdown -->
+                  <select class="form-select border-light-subtle rounded-3 py-1.5 px-3" id="catalogSortSelect" style="width: auto;" aria-label="Sort products">
+                    <option value="rating">Sort: Highest Rated</option>
+                    <option value="price-asc">Sort: Price Low &rarr; High</option>
+                    <option value="price-desc">Sort: Price High &rarr; Low</option>
+                    <option value="name-asc">Sort: Alphabetical (A-Z)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Card Grid -->
+          <div class="row g-4" id="productsCatalogGrid">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- PANE B: Analytics Dashboard Pane (Hidden by Default) -->
+        <div id="analyticsPane" class="d-none">
+          <!-- Stats Summary Cards -->
+          <div class="row g-3 mb-4 text-start">
+            <div class="col-sm-6 col-xl-3">
+              <div class="card border-0 shadow-sm rounded-4 p-3 bg-white h-100 border-start border-primary border-4">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <span class="text-muted small">Total Cost</span>
+                  <div class="text-primary bg-primary bg-opacity-10 rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;"><i class="bi bi-wallet2"></i></div>
+                </div>
+                <h3 class="fw-bold mb-0 text-dark" id="statTotalCost">$0.00</h3>
+                <span class="text-muted small" style="font-size: 0.75rem;">Including 10% taxes</span>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+              <div class="card border-0 shadow-sm rounded-4 p-3 bg-white h-100 border-start border-secondary border-4">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <span class="text-muted small">Items in Cart</span>
+                  <div class="text-secondary bg-secondary bg-opacity-10 rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;"><i class="bi bi-cart3"></i></div>
+                </div>
+                <h3 class="fw-bold mb-0 text-dark" id="statTotalItems">0</h3>
+                <span class="text-muted small" style="font-size: 0.75rem;">Total product models</span>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+              <div class="card border-0 shadow-sm rounded-4 p-3 bg-white h-100 border-start border-success border-4">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <span class="text-muted small">Total Quantity</span>
+                  <div class="text-success bg-success bg-opacity-10 rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;"><i class="bi bi-boxes"></i></div>
+                </div>
+                <h3 class="fw-bold mb-0 text-dark" id="statTotalQty">0</h3>
+                <span class="text-muted small" style="font-size: 0.75rem;">Sum of item counts</span>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+              <div class="card border-0 shadow-sm rounded-4 p-3 bg-white h-100 border-start border-warning border-4">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <span class="text-muted small">Top Added</span>
+                  <div class="text-warning bg-warning bg-opacity-10 rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;"><i class="bi bi-trophy"></i></div>
+                </div>
+                <h3 class="fw-bold mb-0 text-dark fs-5 text-truncate" id="statTopItem" style="line-height: 1.5;">None</h3>
+                <span class="text-muted small" style="font-size: 0.75rem;">Most quantities added</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts Row -->
+          <div class="row g-4 text-start">
+            <!-- Category Distribution Doughnut -->
+            <div class="col-md-5">
+              <div class="card border-0 shadow-sm rounded-4 p-4 bg-white h-100">
+                <h5 class="fw-bold font-outfit mb-3"><i class="bi bi-pie-chart me-2"></i>Category Breakdown</h5>
+                <div class="chart-container d-flex align-items-center justify-content-center" style="position: relative; height: 280px; width: 100%;">
+                  <canvas id="categoryChart"></canvas>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cart Growth Trend Line/Bar -->
+            <div class="col-md-7">
+              <div class="card border-0 shadow-sm rounded-4 p-4 bg-white h-100">
+                <h5 class="fw-bold font-outfit mb-3"><i class="bi bi-graph-up me-2"></i>Cart Value Growth</h5>
+                <div class="chart-container" style="position: relative; height: 280px; width: 100%;">
+                  <canvas id="growthChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </div>
+  </div>
+
+  <!-- FIXED SLIDING CART SIDEBAR -->
+  <div class="cart-sidebar bg-white shadow-lg border-start border-light d-flex flex-column" id="cartSidebar">
+    <!-- Sidebar Header -->
+    <div class="p-3 border-bottom border-light d-flex justify-content-between align-items-center">
+      <h5 class="fw-bold font-outfit text-dark mb-0 d-flex align-items-center gap-2">
+        <i class="bi bi-cart3 text-primary"></i> Shopping Cart
+      </h5>
+      <button class="btn btn-outline-light text-secondary border-0 p-1" id="cartSidebarCloseBtn" aria-label="Close Cart">
+        <i class="bi bi-x-lg fs-5"></i>
+      </button>
+    </div>
+
+    <!-- Cart Free Delivery Progress Tracker -->
+    <div class="px-3 pt-3 pb-3 border-bottom border-light-subtle bg-light-section text-start" id="cartProgressContainer">
+      <div class="d-flex justify-content-between align-items-center mb-1.5">
+        <span class="small text-muted fw-semibold">Free Delivery Goal: $500.00</span>
+        <span class="small fw-bold text-primary" id="cartProgressPercent">0%</span>
+      </div>
+      <div class="progress mb-2" style="height: 8px; border-radius: 4px;">
+        <div class="progress-bar bg-primary progress-bar-striped progress-bar-animated" id="cartProgressBar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+      <span class="small text-muted" style="font-size: 0.8rem;" id="cartProgressStatus">$500.00 more needed for free delivery</span>
+    </div>
+
+    <!-- Sidebar Cart Items Scroll Container -->
+    <div class="p-3 flex-grow-1 overflow-y-auto" id="cartItemsList">
+      <!-- Items loaded dynamically -->
+      <div class="text-center py-5 text-muted empty-cart-msg">
+        <i class="bi bi-cart-x display-3 text-light-subtle d-block mb-3"></i>
+        <h6 class="fw-bold">🛒 Your shared cart is waiting for items</h6>
+        <p class="small text-muted">Add some items from the catalog to begin.</p>
+      </div>
+    </div>
+
+    <!-- Sidebar Footer / Totals -->
+    <div class="p-4 bg-light border-top border-light-subtle mt-auto text-start">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <span class="text-muted">Subtotal</span>
+        <span class="fw-semibold text-dark" id="cartSubtotal">$0.00</span>
+      </div>
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <span class="text-muted">Taxes (10%)</span>
+        <span class="fw-semibold text-dark" id="cartTax">$0.00</span>
+      </div>
+      <div class="d-flex justify-content-between align-items-center mb-4 pt-2 border-top border-light">
+        <span class="fw-bold text-dark fs-5">Grand Total</span>
+        <span class="fw-bold text-primary fs-4" id="cartGrandTotal">$0.00</span>
+      </div>
+
+      <div class="d-grid gap-2">
+        <button class="btn btn-primary py-3 rounded-3 fw-bold btn-hover-effect" id="checkoutReceiptBtn">
+          Checkout & Receipt <i class="bi bi-receipt ms-1"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- BACKDROP OVERLAY FOR SIDEBAR -->
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <!-- RECEIPT MODAL -->
+  <div class="modal fade" id="receiptModal" tabindex="-1" aria-labelledby="receiptModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-md">
+      <div class="modal-content border-0 rounded-4 shadow">
+        <div class="modal-header border-bottom border-light py-3">
+          <h5 class="modal-title fw-bold font-outfit" id="receiptModalLabel"><i class="bi bi-receipt text-primary me-2"></i>Invoice Receipt</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4 bg-white" id="receiptPrintArea">
+          <!-- Printable Receipt Template -->
+          <div class="receipt-container text-start">
+            <div class="text-center mb-4 pb-3 border-bottom border-dashed">
+              <h4 class="fw-bold font-outfit text-dark mb-1">SharedCart Receipt</h4>
+              <span class="text-muted font-monospace text-uppercase small" id="receiptRoomCode">GROCERY-1234</span>
+              <p class="text-muted small mt-2 mb-0" id="receiptTimestamp">Date: June 12, 2026</p>
+            </div>
+            
+            <div class="mb-4">
+              <span class="text-muted d-block small mb-1">Members List:</span>
+              <p class="fw-semibold text-dark small" id="receiptMembersNames">Member 1, Member 2</p>
+            </div>
+
+            <!-- Receipt Items Table -->
+            <table class="table table-borderless table-sm mb-4">
+              <thead>
+                <tr class="border-bottom border-light-subtle small text-muted">
+                  <th scope="col" style="width: 50%;">Product</th>
+                  <th scope="col" class="text-center" style="width: 15%;">Qty</th>
+                  <th scope="col" class="text-end" style="width: 35%;">Price</th>
+                </tr>
+              </thead>
+              <tbody id="receiptTableBody">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+
+            <div class="border-top border-dashed pt-3 text-end">
+              <div class="row mb-1">
+                <div class="col-8 text-muted small">Subtotal:</div>
+                <div class="col-4 fw-semibold" id="receiptSubtotal">$0.00</div>
+              </div>
+              <div class="row mb-1">
+                <div class="col-8 text-muted small">Tax (10%):</div>
+                <div class="col-4 fw-semibold" id="receiptTax">$0.00</div>
+              </div>
+              <div class="row mt-2 pt-2 border-top border-light">
+                <div class="col-8 fw-bold fs-5 text-dark">Grand Total:</div>
+                <div class="col-4 fw-bold fs-5 text-primary" id="receiptGrandTotal">$0.00</div>
+              </div>
+            </div>
+
+            <!-- Smart Expense Split Container -->
+            <div id="receiptSplitContainer" class="mt-4 pt-2 text-start border-top">
+              <!-- Split entries populated dynamically -->
+            </div>
+
+            <div class="text-center mt-5 text-muted small border-top pt-3">
+              <p class="mb-0">Thank you for shopping collaboratively with SharedCart!</p>
+              <span class="text-muted text-opacity-75" style="font-size: 0.7rem;">Hassle-Free Group Shopping lists</span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer border-top border-light d-flex justify-content-between p-3">
+          <button type="button" class="btn btn-outline-secondary px-3 py-2 rounded-3" data-bs-dismiss="modal">Close</button>
+          <div class="d-flex gap-2">
+            <button type="button" class="btn btn-primary px-3 py-2 rounded-3 d-flex align-items-center gap-2" id="printReceiptBtn">
+              <i class="bi bi-printer"></i> Print Invoice
+            </button>
+            <button type="button" class="btn btn-secondary px-3 py-2 rounded-3 d-flex align-items-center gap-2" id="downloadReceiptBtn">
+              <i class="bi bi-download"></i> PDF
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- App controllers -->
+  <script src="js/storage.js"></script>
+  <script src="js/room.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/receipt.js"></script>
+</body>
+</html>

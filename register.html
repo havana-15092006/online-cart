@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - SharedCart</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <script>
+    if (localStorage.getItem('sharedcart_theme') === 'dark') {
+      document.documentElement.classList.add('dark-mode');
+    }
+  </script>
+</head>
+<body class="auth-bg">
+  <!-- Floating Dark Mode Toggle -->
+  <div class="position-absolute top-0 end-0 p-3">
+    <button class="btn btn-light border-0 rounded-3 text-secondary p-2 shadow-sm" id="darkModeToggle" aria-label="Toggle Dark Mode">
+      <i class="bi bi-moon-fill"></i>
+    </button>
+  </div>
+  <div class="container d-flex justify-content-center align-items-center min-vh-100 py-5">
+    <div class="auth-card p-4 p-md-5 rounded-4 shadow-lg border border-white border-opacity-10 text-center">
+      <!-- Logo Header -->
+      <div class="mb-4">
+        <a href="index.html" class="text-decoration-none d-inline-flex align-items-center gap-2">
+          <div class="logo-icon bg-gradient text-white p-2 rounded-3 d-flex align-items-center justify-content-center shadow-sm">
+            <i class="bi bi-cart-dash-fill fs-3"></i>
+          </div>
+          <span class="logo-text font-outfit fs-2 fw-bold text-dark">Shared<span class="text-primary">Cart</span></span>
+        </a>
+        <p class="text-muted mt-2">Create an account to shop collaboratively with friends & family</p>
+      </div>
+
+      <!-- Registration Form -->
+      <form id="registerForm" novalidate>
+        <!-- Alert Messages -->
+        <div id="authAlert" class="alert alert-danger d-none rounded-3 py-2 text-start small border-0" role="alert">
+          <i class="bi bi-exclamation-triangle-fill me-2"></i> <span id="authAlertMsg"></span>
+        </div>
+
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control rounded-3" id="registerName" placeholder="John Doe" required>
+          <label for="registerName"><i class="bi bi-person me-2"></i>Full Name</label>
+        </div>
+
+        <div class="form-floating mb-3">
+          <input type="email" class="form-control rounded-3" id="registerEmail" placeholder="name@example.com" required>
+          <label for="registerEmail"><i class="bi bi-envelope me-2"></i>Email Address</label>
+        </div>
+
+        <div class="form-floating mb-3">
+          <input type="password" class="form-control rounded-3" id="registerPassword" placeholder="Password" required minlength="6">
+          <label for="registerPassword"><i class="bi bi-lock me-2"></i>Password (min 6 chars)</label>
+        </div>
+
+        <div class="form-floating mb-4">
+          <input type="password" class="form-control rounded-3" id="registerConfirmPassword" placeholder="Confirm Password" required>
+          <label for="registerConfirmPassword"><i class="bi bi-shield-check me-2"></i>Confirm Password</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 py-3 rounded-3 fw-semibold shadow-sm mb-3 position-relative overflow-hidden btn-hover-effect">
+          Sign Up
+        </button>
+
+        <div class="text-muted small">
+          Already have an account? <a href="login.html" class="text-primary fw-semibold text-decoration-none hover-underline">Login here</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/storage.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

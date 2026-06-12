@@ -1,0 +1,82 @@
+/**
+ * Media Queries and Responsive Tweaks for SharedCart
+ */
+
+/* Laptop Screens (1366px and down) */
+@media (max-width: 1366px) {
+  .hero-title {
+    font-size: 3rem !important;
+  }
+}
+
+/* Tablet Screens (992px and down) */
+@media (max-width: 991.98px) {
+  /* Stack the layout: Room details side bar moves below or above catalog */
+  aside {
+    margin-bottom: 2rem;
+  }
+  
+  .hero-title {
+    font-size: 2.5rem !important;
+  }
+}
+
+/* Mobile Screens (576px and down) */
+@media (max-width: 575.98px) {
+  body {
+    font-size: 0.9rem;
+  }
+
+  .container, .container-fluid {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  /* Cart Sidebar stretches to fill mobile screens completely */
+  .cart-sidebar {
+    width: 100% !important;
+    right: -100% !important;
+  }
+
+  .cart-sidebar.open {
+    right: 0 !important;
+  }
+
+  /* Reduce padding on cards for tight mobile layouts */
+  .auth-card, .room-card, .product-card {
+    padding: 1.5rem !important;
+  }
+
+  .custom-pills {
+    width: 100%;
+    display: flex;
+  }
+
+  .custom-pills li {
+    flex: 1;
+  }
+
+  .custom-pills .nav-link {
+    width: 100%;
+    text-align: center;
+    padding: 8px 10px !important;
+    font-size: 0.85rem;
+  }
+
+  /* Adjust filters display */
+  .btn-category {
+    font-size: 0.8rem;
+    padding: 6px 12px !important;
+  }
+}
+
+/* Extra small mobile adjustments (320px+) */
+@media (max-width: 375px) {
+  .logo-text {
+    font-size: 1.25rem !important;
+  }
+  
+  #cartSidebarToggleBtn {
+    padding: 6px 10px !important;
+  }
+}

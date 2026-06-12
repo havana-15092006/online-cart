@@ -1,0 +1,142 @@
+/**
+ * Dashboard and Workspace Layout Styles for SharedCart
+ */
+
+/* Room Cards on Dashboard Portal */
+.room-card {
+  transition: var(--transition);
+  border: 1px solid rgba(0, 0, 0, 0.03) !important;
+}
+
+.room-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg) !important;
+}
+
+/* User Profile Avatar styles */
+.avatar {
+  background: var(--primary);
+  color: #fff;
+  font-family: var(--font-outfit);
+}
+
+/* Tab Navigation Pills overrides */
+.custom-pills {
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+.custom-pills .nav-link {
+  color: var(--dark);
+  border: 0;
+  transition: var(--transition);
+}
+.custom-pills .nav-link.active {
+  background-color: var(--primary);
+  color: #fff;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Product Catalog Cards */
+.product-card {
+  border: 1px solid rgba(0, 0, 0, 0.03) !important;
+  transition: var(--transition);
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg) !important;
+}
+
+.product-card:hover .product-img-pic {
+  transform: scale(1.06);
+}
+
+.product-img-pic {
+  transition: transform 0.5s ease;
+  object-fit: cover;
+}
+
+/* Fixed Sliding Cart Sidebar */
+.cart-sidebar {
+  position: fixed;
+  top: 0;
+  right: -380px;
+  width: 380px;
+  height: 100%;
+  z-index: 1050;
+  background-color: #fff;
+  transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.06);
+}
+
+.cart-sidebar.open {
+  right: 0;
+}
+
+/* Cart Overlay Backdrop */
+.sidebar-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1040;
+  background: rgba(15, 23, 42, 0.25);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar-backdrop.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Cart Item Rows styles */
+.cart-item-row {
+  transition: var(--transition);
+}
+.cart-item-row:hover {
+  background-color: var(--light-bg);
+}
+
+.btn-qty-minus, .btn-qty-plus {
+  border-color: rgba(0, 0, 0, 0.1);
+  color: var(--dark);
+  font-weight: bold;
+}
+.btn-qty-minus:hover, .btn-qty-plus:hover {
+  background-color: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+/* Timeline Activity Connector lines */
+.timeline-container {
+  scrollbar-width: thin;
+}
+
+.timeline-item::after {
+  content: '';
+  position: absolute;
+  left: -19px;
+  top: 16px;
+  bottom: -20px;
+  width: 2px;
+  background-color: #e5e7eb;
+}
+
+.timeline-item:last-child::after {
+  display: none;
+}
+
+.timeline-marker {
+  z-index: 2;
+}
+
+/* Toast animations tweak */
+.toast {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}

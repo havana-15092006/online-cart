@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SharedCart - Collaborative Shopping Cart</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    if (localStorage.getItem('sharedcart_theme') === 'dark') {
+      document.documentElement.classList.add('dark-mode');
+    }
+  </script>
+</head>
+<body>
+  <!-- Header / Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top border-bottom border-light">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+        <div class="logo-icon bg-gradient text-white p-2 rounded-3 d-flex align-items-center justify-content-center shadow-sm">
+          <i class="bi bi-cart-dash-fill fs-4"></i>
+        </div>
+        <span class="logo-text font-outfit fs-3 fw-bold text-dark">Shared<span class="text-primary">Cart</span></span>
+      </a>
+      <button class="navbar-expand-toggle border-0 bg-transparent d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-label="Toggle navigation">
+        <i class="bi bi-list fs-1 text-dark"></i>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
+        <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0" id="navActions">
+          <button class="btn btn-light border-0 rounded-3 text-secondary p-2 me-1" id="darkModeToggle" aria-label="Toggle Dark Mode">
+            <i class="bi bi-moon-fill"></i>
+          </button>
+          <a href="login.html" class="btn btn-link text-decoration-none text-secondary fw-medium">Login</a>
+          <a href="register.html" class="btn btn-primary px-4 py-2 rounded-3 fw-semibold shadow-sm btn-hover-effect">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero-section py-5 d-flex align-items-center position-relative overflow-hidden bg-white">
+    <div class="container py-md-5">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6 text-start">
+          <div class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill fw-semibold mb-3">
+            <i class="bi bi-stars me-1"></i> Real-time Local Collaboration
+          </div>
+          <h1 class="hero-title font-outfit fw-bold text-dark mb-4" style="font-size: 3.5rem; line-height: 1.2;">
+            Shop Together, <br><span class="text-primary">Sync Instantly.</span>
+          </h1>
+          <p class="lead text-muted mb-4" style="font-size: 1.2rem;">
+            Roommates, families, or friends can build a single, unified shopping list in real-time. Add items, adjust quantities, see instant timeline updates, and download/print combined receipts.
+          </p>
+          <div class="d-flex flex-sm-row flex-column gap-3">
+            <a href="register.html" class="btn btn-primary px-5 py-3 rounded-3 fw-semibold fs-5 shadow-sm btn-hover-effect">Create a Free Account</a>
+            <a href="login.html" class="btn btn-outline-secondary px-5 py-3 rounded-3 fw-semibold fs-5">Join Room</a>
+          </div>
+        </div>
+        <div class="col-lg-6 position-relative">
+          <!-- Glassmorphism Visual Card -->
+          <div class="position-relative hero-image-container p-4">
+            <div class="hero-glass-card p-4 rounded-4 shadow border border-white border-opacity-10">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-1">Active Cart</span>
+                <span class="text-muted small"><i class="bi bi-people me-1"></i> 3 Collaborators</span>
+              </div>
+              <ul class="list-unstyled mb-0">
+                <li class="d-flex justify-content-between align-items-center py-2 border-bottom border-light">
+                  <div class="d-flex align-items-center gap-2">
+                    <i class="bi bi-egg-fried text-primary"></i>
+                    <div>
+                      <h6 class="mb-0 text-dark">Fresh Whole Eggs</h6>
+                      <span class="text-muted small">Added by Sarah</span>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center gap-3">
+                    <span class="badge bg-light text-dark py-2 px-3 rounded">Qty: 2</span>
+                    <span class="fw-semibold text-dark">$7.98</span>
+                  </div>
+                </li>
+                <li class="d-flex justify-content-between align-items-center py-2 border-bottom border-light">
+                  <div class="d-flex align-items-center gap-2">
+                    <i class="bi bi-laptop text-primary"></i>
+                    <div>
+                      <h6 class="mb-0 text-dark">RGB Gaming Keyboard</h6>
+                      <span class="text-muted small">Added by John</span>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center gap-3">
+                    <span class="badge bg-light text-dark py-2 px-3 rounded">Qty: 1</span>
+                    <span class="fw-semibold text-dark">$79.99</span>
+                  </div>
+                </li>
+              </ul>
+              <div class="d-flex justify-content-between align-items-center mt-3 pt-2">
+                <span class="text-muted fw-semibold">Grand Total:</span>
+                <span class="fs-4 fw-bold text-primary">$87.97</span>
+              </div>
+            </div>
+            <!-- Decorative floating rings/circles -->
+            <div class="floating-circle circle-1"></div>
+            <div class="floating-circle circle-2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Features Section -->
+  <section class="py-5 bg-light-section border-top border-light">
+    <div class="container py-5 text-center">
+      <h2 class="font-outfit fw-bold text-dark mb-2">Designed for Effortless Collaboration</h2>
+      <p class="text-muted lead mb-5 col-lg-8 mx-auto">SharedCart makes grocery trips or group purchases transparent and stress-free.</p>
+      
+      <div class="row g-4">
+        <!-- Feature 1 -->
+        <div class="col-md-4">
+          <div class="card border-0 p-4 shadow-sm rounded-4 h-100 feature-card text-start bg-white">
+            <div class="feature-icon bg-primary text-white p-3 rounded-3 mb-4 d-inline-flex align-items-center justify-content-center shadow-sm">
+              <i class="bi bi-lightning-charge-fill fs-4"></i>
+            </div>
+            <h5 class="fw-bold mb-3 font-outfit">Instant Storage Sync</h5>
+            <p class="text-muted mb-0">No backend required to see it in action. Open two tabs on the same computer and watch items sync instantly as they're added.</p>
+          </div>
+        </div>
+        <!-- Feature 2 -->
+        <div class="col-md-4">
+          <div class="card border-0 p-4 shadow-sm rounded-4 h-100 feature-card text-start bg-white">
+            <div class="feature-icon bg-secondary text-white p-3 rounded-3 mb-4 d-inline-flex align-items-center justify-content-center shadow-sm">
+              <i class="bi bi-pie-chart-fill fs-4"></i>
+            </div>
+            <h5 class="fw-bold mb-3 font-outfit">Live Cart Analytics</h5>
+            <p class="text-muted mb-0">Track product distributions by category (Grocery vs Electronics) and watch the cart cost growth trend via visual Chart.js dashboards.</p>
+          </div>
+        </div>
+        <!-- Feature 3 -->
+        <div class="col-md-4">
+          <div class="card border-0 p-4 shadow-sm rounded-4 h-100 feature-card text-start bg-white">
+            <div class="feature-icon bg-success text-white p-3 rounded-3 mb-4 d-inline-flex align-items-center justify-content-center shadow-sm">
+              <i class="bi bi-receipt-cutoff fs-4"></i>
+            </div>
+            <h5 class="fw-bold mb-3 font-outfit">Invoice & Receipts</h5>
+            <p class="text-muted mb-0">Ready to split the bill? Generate a clean invoice detailing who added what, print directly from the browser, or export to PDF.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-white py-4 border-top border-light">
+    <div class="container text-center text-muted small">
+      <div class="d-flex justify-content-between align-items-center flex-column flex-md-row">
+        <div>
+          <span class="fw-semibold">SharedCart</span> &copy; 2026. All rights reserved.
+        </div>
+        <div class="d-flex gap-3 mt-3 mt-md-0">
+          <span class="text-muted">Version 1.0.0</span>
+          <span>&middot;</span>
+          <span class="text-muted">Built for Pair Programming Demonstration</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/storage.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const currentUser = window.SharedCartStorage.getCurrentUser();
+      const navActions = document.getElementById('navActions');
+      if (currentUser && navActions) {
+        navActions.innerHTML = `
+          <span class="text-muted me-2 small"><i class="bi bi-person-fill"></i> Hi, ${currentUser.name}</span>
+          <a href="dashboard.html" class="btn btn-primary px-4 py-2 rounded-3 fw-semibold shadow-sm">Go to Dashboard</a>
+        `;
+      }
+    });
+  </script>
+</body>
+</html>

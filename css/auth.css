@@ -1,0 +1,48 @@
+/**
+ * Authentication Pages Styles for SharedCart
+ */
+
+.auth-bg {
+  background: radial-gradient(circle at 10% 20%, rgba(79, 70, 229, 0.05) 0%, transparent 40%),
+              radial-gradient(circle at 90% 80%, rgba(124, 58, 237, 0.05) 0%, transparent 40%),
+              #f9fafb;
+}
+
+.auth-card {
+  max-width: 480px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04), 0 1px 8px rgba(0, 0, 0, 0.01);
+  transition: transform 0.3s ease;
+}
+
+/* Float Form Control styling additions */
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label {
+  color: var(--primary);
+  transform: scale(0.85) translateY(-0.75rem) translateX(0.15rem);
+}
+
+.form-floating > .form-control {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background-color: rgba(255, 255, 255, 0.6);
+  transition: var(--transition);
+}
+
+.form-floating > .form-control:focus {
+  border-color: var(--primary);
+  background-color: #fff;
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12);
+}
+
+.form-check-input:checked {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.hover-underline:hover {
+  text-decoration: underline !important;
+}
