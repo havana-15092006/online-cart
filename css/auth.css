@@ -3,20 +3,38 @@
  */
 
 .auth-bg {
-  background: radial-gradient(circle at 10% 20%, rgba(79, 70, 229, 0.05) 0%, transparent 40%),
-              radial-gradient(circle at 90% 80%, rgba(124, 58, 237, 0.05) 0%, transparent 40%),
-              #f9fafb;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(249, 90, 44, 0.08) 0%, transparent 45%),
+    radial-gradient(circle at 80% 80%, rgba(255, 159, 28, 0.08) 0%, transparent 45%),
+    linear-gradient(135deg, #FCFBF9 0%, #F5F2EB 100%) !important;
+  background-attachment: fixed !important;
+  background-size: cover !important;
+}
+
+body.dark-mode .auth-bg {
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(249, 90, 44, 0.12) 0%, transparent 45%),
+    radial-gradient(circle at 80% 80%, rgba(255, 159, 28, 0.1) 0%, transparent 45%),
+    linear-gradient(135deg, #16100E 0%, #0E0A09 100%) !important;
+  background-attachment: fixed !important;
+  background-size: cover !important;
 }
 
 .auth-card {
   max-width: 480px;
   width: 100%;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04), 0 1px 8px rgba(0, 0, 0, 0.01);
+  background: rgba(255, 255, 255, 0.75) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 20px 40px rgba(249, 90, 44, 0.06), 0 1px 10px rgba(0, 0, 0, 0.01) !important;
   transition: transform 0.3s ease;
+}
+
+body.dark-mode .auth-card {
+  background: rgba(30, 23, 21, 0.75) !important;
+  border-color: rgba(255, 255, 255, 0.06) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3) !important;
 }
 
 /* Float Form Control styling additions */
@@ -35,7 +53,7 @@
 .form-floating > .form-control:focus {
   border-color: var(--primary);
   background-color: #fff;
-  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12);
+  box-shadow: 0 0 0 4px rgba(249, 90, 44, 0.12);
 }
 
 .form-check-input:checked {

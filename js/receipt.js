@@ -159,10 +159,10 @@ function exportReceiptToPDF(room, cartItems) {
     });
 
     // Styling constants
-    const primaryColor = '#4F46E5';
-    const secondaryColor = '#7C3AED';
-    const darkColor = '#1F2937';
-    const greyColor = '#9CA3AF';
+    const primaryColor = '#F95A2C';
+    const secondaryColor = '#FF9F1C';
+    const darkColor = '#1E2229';
+    const greyColor = '#A59892';
 
     // Header Title
     doc.setFont('Helvetica', 'bold');

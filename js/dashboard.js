@@ -71,10 +71,10 @@ function renderCategoryChart(cartItems) {
     datasets: [{
       data: dataCounts,
       backgroundColor: [
-        '#4F46E5', // Indigo
-        '#7C3AED', // Violet
-        '#10B981', // Emerald
-        '#F59E0B'  // Amber
+        '#F95A2C', // Sunset Coral (Grocery)
+        '#FF9F1C', // Warm Gold (Electronics)
+        '#10B981', // Emerald Green (Home Essentials)
+        '#8B5CF6'  // Modern Violet (Snacks)
       ],
       borderWidth: 2,
       borderColor: '#ffffff',
@@ -207,12 +207,12 @@ function renderGrowthChart(logs, currentCartItems) {
     datasets: [{
       label: 'Cart Total ($)',
       data: displayValues,
-      borderColor: '#4F46E5', // Indigo
-      backgroundColor: 'rgba(79, 70, 229, 0.1)',
+      borderColor: '#F95A2C', // Sunset Coral
+      backgroundColor: 'rgba(249, 90, 44, 0.08)',
       borderWidth: 3,
       fill: true,
       tension: 0.4,
-      pointBackgroundColor: '#4F46E5',
+      pointBackgroundColor: '#F95A2C',
       pointBorderColor: '#ffffff',
       pointBorderWidth: 2,
       pointRadius: 5,

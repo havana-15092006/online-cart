@@ -5,12 +5,28 @@
 /* Room Cards on Dashboard Portal */
 .room-card {
   transition: var(--transition);
-  border: 1px solid rgba(0, 0, 0, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+  box-shadow: var(--shadow-sm) !important;
+  border-radius: 16px !important;
+  background: rgba(255, 255, 255, 0.7) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .room-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-lg) !important;
+  border-color: rgba(249, 90, 44, 0.25) !important;
+  background: rgba(255, 255, 255, 0.85) !important;
+}
+
+body.dark-mode .room-card {
+  background: rgba(30, 23, 21, 0.7) !important;
+  border-color: rgba(255, 255, 255, 0.06) !important;
+}
+body.dark-mode .room-card:hover {
+  background: rgba(30, 23, 21, 0.85) !important;
+  border-color: rgba(249, 90, 44, 0.3) !important;
 }
 
 /* User Profile Avatar styles */
@@ -18,40 +34,72 @@
   background: var(--primary);
   color: #fff;
   font-family: var(--font-outfit);
+  transition: var(--transition);
+  box-shadow: 0 2px 6px rgba(249, 90, 44, 0.15);
+}
+.avatar:hover {
+  transform: scale(1.05);
 }
 
 /* Tab Navigation Pills overrides */
 .custom-pills {
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: rgba(255, 255, 255, 0.5) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  border-radius: 12px;
+  padding: 4px !important;
+}
+body.dark-mode .custom-pills {
+  background: rgba(30, 23, 21, 0.5) !important;
+  border-color: rgba(255, 255, 255, 0.06) !important;
 }
 .custom-pills .nav-link {
   color: var(--dark);
   border: 0;
+  border-radius: 8px !important;
   transition: var(--transition);
 }
 .custom-pills .nav-link.active {
-  background-color: var(--primary);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%) !important;
   color: #fff;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 4px 12px rgba(249, 90, 44, 0.3);
 }
 
 /* Product Catalog Cards */
 .product-card {
-  border: 1px solid rgba(0, 0, 0, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+  box-shadow: var(--shadow-sm) !important;
+  border-radius: 16px !important;
+  overflow: hidden;
   transition: var(--transition);
+  background: rgba(255, 255, 255, 0.7) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .product-card:hover {
   transform: translateY(-5px);
   box-shadow: var(--shadow-lg) !important;
+  border-color: rgba(249, 90, 44, 0.25) !important;
+  background: rgba(255, 255, 255, 0.85) !important;
+}
+
+body.dark-mode .product-card {
+  background: rgba(30, 23, 21, 0.7) !important;
+  border-color: rgba(255, 255, 255, 0.05) !important;
+}
+body.dark-mode .product-card:hover {
+  background: rgba(30, 23, 21, 0.85) !important;
+  border-color: rgba(249, 90, 44, 0.3) !important;
 }
 
 .product-card:hover .product-img-pic {
-  transform: scale(1.06);
+  transform: scale(1.05);
 }
 
 .product-img-pic {
-  transition: transform 0.5s ease;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   object-fit: cover;
 }
 
@@ -63,9 +111,12 @@
   width: 380px;
   height: 100%;
   z-index: 1050;
-  background-color: #fff;
+  background: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-left: 1px solid rgba(255, 255, 255, 0.4) !important;
   transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.06);
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.1);
 }
 
 .cart-sidebar.open {
