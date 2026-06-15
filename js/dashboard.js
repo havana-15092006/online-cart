@@ -140,10 +140,10 @@ function renderGrowthChart(logs, currentCartItems) {
     const item = currentCartItems.find(i => prodName.toLowerCase().includes(i.name.toLowerCase()));
     if (item) return item.price;
     // Guess default values if not present
-    if (prodName.toLowerCase().includes('laptop')) return 899.99;
-    if (prodName.toLowerCase().includes('headphones')) return 149.99;
-    if (prodName.toLowerCase().includes('rice')) return 12.99;
-    return 5.00; // default guess
+    if (prodName.toLowerCase().includes('laptop')) return 75000.00;
+    if (prodName.toLowerCase().includes('headphones')) return 12500.00;
+    if (prodName.toLowerCase().includes('rice')) return 199.00;
+    return 300.00; // default guess
   };
 
   chronoLogs.forEach((log) => {
@@ -205,7 +205,7 @@ function renderGrowthChart(logs, currentCartItems) {
   const chartData = {
     labels: displayLabels,
     datasets: [{
-      label: 'Cart Total ($)',
+      label: 'Cart Total (₹)',
       data: displayValues,
       borderColor: '#F95A2C', // Sunset Coral
       backgroundColor: 'rgba(249, 90, 44, 0.08)',
@@ -248,7 +248,7 @@ function renderGrowthChart(logs, currentCartItems) {
             color: '#f3f4f6'
           },
           ticks: {
-            callback: value => `$${value}`,
+            callback: value => `₹${value}`,
             font: {
               family: 'Inter',
               size: 10

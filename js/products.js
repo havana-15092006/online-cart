@@ -9,7 +9,7 @@ const FALLBACK_PRODUCTS = [
     "name": "Organic Jasmine Rice",
     "description": "Premium quality, long-grain fragrant jasmine rice, perfect for standard meals.",
     "category": "Grocery",
-    "price": 12.99,
+    "price": 199.00,
     "stock": 15,
     "image": "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
     "rating": 4.7
@@ -19,7 +19,7 @@ const FALLBACK_PRODUCTS = [
     "name": "Fresh Whole Milk",
     "description": "Rich in calcium, pasteurized whole milk from local dairy farms. 1 Gallon.",
     "category": "Grocery",
-    "price": 3.49,
+    "price": 70.00,
     "stock": 25,
     "image": "https://images.unsplash.com/photo-1550583724-b2692b85b150?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
     "rating": 4.5
@@ -29,7 +29,7 @@ const FALLBACK_PRODUCTS = [
     "name": "Artisanal Sourdough Bread",
     "description": "Freshly baked sourdough bread with a crispy crust and soft, airy interior.",
     "category": "Grocery",
-    "price": 4.99,
+    "price": 120.00,
     "stock": 10,
     "image": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
     "rating": 4.8
@@ -39,7 +39,7 @@ const FALLBACK_PRODUCTS = [
     "name": "Free-Range Large Eggs",
     "description": "One dozen farm-fresh, free-range brown eggs rich in protein.",
     "category": "Grocery",
-    "price": 3.99,
+    "price": 80.00,
     "stock": 30,
     "image": "https://images.unsplash.com/photo-1516448620398-c5f44bf9f441?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
     "rating": 4.6
@@ -49,7 +49,7 @@ const FALLBACK_PRODUCTS = [
     "name": "Fresh Organic Bananas",
     "description": "A bunch of sweet, ripe organic bananas, loaded with potassium.",
     "category": "Grocery",
-    "price": 1.99,
+    "price": 60.00,
     "stock": 40,
     "image": "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
     "rating": 4.9
@@ -59,7 +59,7 @@ const FALLBACK_PRODUCTS = [
     "name": "Ultra-Slim Pro Laptop",
     "description": "Powerful 14-inch laptop with 16GB RAM, 512GB SSD, and high-res display for professionals.",
     "category": "Electronics",
-    "price": 899.99,
+    "price": 75000.00,
     "stock": 5,
     "image": "https://images.unsplash.com/photo-1496181130204-755241524eab?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
     "rating": 4.9
@@ -69,7 +69,7 @@ const FALLBACK_PRODUCTS = [
     "name": "Wireless Noise-Cancelling Headphones",
     "description": "Over-ear active noise-cancelling headphones with 40-hour battery life and deep bass.",
     "category": "Electronics",
-    "price": 149.99,
+    "price": 12500.00,
     "stock": 12,
     "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
     "rating": 4.7
@@ -79,7 +79,7 @@ const FALLBACK_PRODUCTS = [
     "name": "Ergonomic Silent Mouse",
     "description": "Comfortable wireless mouse with silent click buttons and adjustable DPI settings.",
     "category": "Electronics",
-    "price": 29.99,
+    "price": 2499.00,
     "stock": 20,
     "image": "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
     "rating": 4.4
@@ -89,7 +89,7 @@ const FALLBACK_PRODUCTS = [
     "name": "Mechanical RGB Keyboard",
     "description": "Tactile blue switch mechanical keyboard with customisable RGB backlit profiles.",
     "category": "Electronics",
-    "price": 79.99,
+    "price": 6499.00,
     "stock": 8,
     "image": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
     "rating": 4.6
@@ -99,7 +99,7 @@ const FALLBACK_PRODUCTS = [
     "name": "Eco-Friendly Laundry Detergent",
     "description": "Plant-based, biodegradable liquid laundry detergent, tough on stains but gentle on skin.",
     "category": "Home Essentials",
-    "price": 14.49,
+    "price": 399.00,
     "stock": 18,
     "image": "https://images.unsplash.com/photo-1610557892470-76d74ae12289?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
     "rating": 4.5
@@ -109,7 +109,7 @@ const FALLBACK_PRODUCTS = [
     "name": "Multi-Surface Cleaning Spray",
     "description": "All-purpose lavender-scented cleaning spray that cuts through grease and grime.",
     "category": "Home Essentials",
-    "price": 5.99,
+    "price": 199.00,
     "stock": 25,
     "image": "https://images.unsplash.com/photo-1585421514738-ee1a3b2e5fe2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
     "rating": 4.3
@@ -119,7 +119,7 @@ const FALLBACK_PRODUCTS = [
     "name": "Luxury Cotton Bath Towels",
     "description": "Set of 2 ultra-absorbent, quick-dry Egyptian cotton towels in neutral grey.",
     "category": "Home Essentials",
-    "price": 24.99,
+    "price": 1499.00,
     "stock": 14,
     "image": "https://images.unsplash.com/photo-1563453392212-326f5e854473?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
     "rating": 4.8
@@ -129,7 +129,7 @@ const FALLBACK_PRODUCTS = [
     "name": "Crispy Sea Salt Potato Chips",
     "description": "Kettle-cooked potato chips seasoned with natural sea salt. Extra crunchy.",
     "category": "Snacks",
-    "price": 2.99,
+    "price": 50.00,
     "stock": 50,
     "image": "https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
     "rating": 4.6
@@ -139,7 +139,7 @@ const FALLBACK_PRODUCTS = [
     "name": "Dark Chocolate Sea Salt Bar",
     "description": "70% cocoa organic dark chocolate bar with a hint of fleur de sel.",
     "category": "Snacks",
-    "price": 3.99,
+    "price": 150.00,
     "stock": 0,
     "image": "https://images.unsplash.com/photo-1549007994-cb92ca818bc6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
     "rating": 4.9
@@ -149,7 +149,7 @@ const FALLBACK_PRODUCTS = [
     "name": "Belgian Choco-Chip Biscuits",
     "description": "Crisp cookies loaded with premium Belgian chocolate chips. 200g pack.",
     "category": "Snacks",
-    "price": 4.49,
+    "price": 120.00,
     "stock": 22,
     "image": "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
     "rating": 4.7
@@ -160,7 +160,7 @@ let productsDatabase = [];
 let activeFilters = {
   category: 'All',
   searchQuery: '',
-  maxPrice: 1000,
+  maxPrice: 100000,
   inStockOnly: false,
   sortBy: 'rating'
 };
@@ -222,7 +222,7 @@ function setupFilterListeners() {
   const priceRangeLabel = document.getElementById('priceRangeLabel');
   if (priceRangeSlider) {
     priceRangeSlider.addEventListener('input', (e) => {
-      if (priceRangeLabel) priceRangeLabel.textContent = `$${e.target.value}`;
+      if (priceRangeLabel) priceRangeLabel.textContent = `₹${e.target.value}`;
       activeFilters.maxPrice = parseFloat(e.target.value);
     });
   }
@@ -357,7 +357,7 @@ function filterAndRenderProducts() {
           <p class="text-muted small text-truncate-3 mb-3" style="line-height: 1.5; font-size: 0.85rem;">${product.description}</p>
           
           <div class="d-flex justify-content-between align-items-center mt-auto pt-2 border-top border-light-subtle">
-            <span class="fs-4 fw-bold text-primary">$${product.price.toFixed(2)}</span>
+            <span class="fs-4 fw-bold text-primary">₹${product.price.toFixed(2)}</span>
             <button class="btn btn-primary rounded-3 d-flex align-items-center justify-content-center btn-add-to-cart p-2.5 btn-hover-effect" 
                     data-product-id="${product.id}" 
                     ${isOutOfStock ? 'disabled' : ''} 

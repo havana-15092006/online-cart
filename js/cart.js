@@ -74,9 +74,9 @@ function renderCart(storage, roomCode) {
         <p class="small text-muted">Add some items from the catalog to begin.</p>
       </div>
     `;
-    if (cartSubtotal) cartSubtotal.textContent = '$0.00';
-    if (cartTax) cartTax.textContent = '$0.00';
-    if (cartGrandTotal) cartGrandTotal.textContent = '$0.00';
+    if (cartSubtotal) cartSubtotal.textContent = '₹0.00';
+    if (cartTax) cartTax.textContent = '₹0.00';
+    if (cartGrandTotal) cartGrandTotal.textContent = '₹0.00';
     
     // Reset progress tracker and dashboard metrics
     updateProgressTracker(0);
@@ -102,7 +102,7 @@ function renderCart(storage, roomCode) {
       <div class="flex-grow-1" style="min-width: 0;">
         <h6 class="fw-semibold text-dark mb-0.5 text-truncate" title="${item.name}">${item.name}</h6>
         <div class="d-flex align-items-center gap-2 mb-1.5">
-          <span class="text-primary fw-bold">$${item.price.toFixed(2)}</span>
+          <span class="text-primary fw-bold">₹${item.price.toFixed(2)}</span>
           <span class="text-muted small">| Added by ${item.addedBy}</span>
         </div>
         
@@ -119,7 +119,7 @@ function renderCart(storage, roomCode) {
         <button class="btn btn-outline-light text-danger border-0 p-1 btn-cart-remove rounded-3" data-product-id="${item.productId}" title="Remove Item" aria-label="Remove ${item.name} from cart">
           <i class="bi bi-trash"></i>
         </button>
-        <span class="fw-bold text-dark font-outfit">$${itemTotal.toFixed(2)}</span>
+        <span class="fw-bold text-dark font-outfit">₹${itemTotal.toFixed(2)}</span>
       </div>
     `;
 
@@ -130,9 +130,9 @@ function renderCart(storage, roomCode) {
   const tax = subtotal * 0.10;
   const grandTotal = subtotal + tax;
 
-  if (cartSubtotal) cartSubtotal.textContent = `$${subtotal.toFixed(2)}`;
-  if (cartTax) cartTax.textContent = `$${tax.toFixed(2)}`;
-  if (cartGrandTotal) cartGrandTotal.textContent = `$${grandTotal.toFixed(2)}`;
+  if (cartSubtotal) cartSubtotal.textContent = `₹${subtotal.toFixed(2)}`;
+  if (cartTax) cartTax.textContent = `₹${tax.toFixed(2)}`;
+  if (cartGrandTotal) cartGrandTotal.textContent = `₹${grandTotal.toFixed(2)}`;
 
   // Update free delivery tracker
   updateProgressTracker(grandTotal);
@@ -161,7 +161,7 @@ function updateProgressTracker(total) {
 
   if (!cartProgressBar) return;
 
-  const target = 500.00;
+  const target = 2000.00;
   
   if (total >= target) {
     if (cartProgressPercent) cartProgressPercent.textContent = '100%';
@@ -176,7 +176,7 @@ function updateProgressTracker(total) {
     cartProgressBar.style.width = `${percent}%`;
     cartProgressBar.setAttribute('aria-valuenow', percent.toString());
     cartProgressBar.className = 'progress-bar bg-primary progress-bar-striped progress-bar-animated';
-    if (cartProgressStatus) cartProgressStatus.textContent = `$${needed.toFixed(2)} more needed for free delivery`;
+    if (cartProgressStatus) cartProgressStatus.textContent = `₹${needed.toFixed(2)} more needed for free delivery`;
   }
 }
 
@@ -301,7 +301,7 @@ function updateDashboardMetrics(totalVal, distinctItems, sumQty, topItem) {
   const statTotalQty = document.getElementById('statTotalQty');
   const statTopItem = document.getElementById('statTopItem');
 
-  if (statTotalCost) statTotalCost.textContent = `$${totalVal.toFixed(2)}`;
+  if (statTotalCost) statTotalCost.textContent = `₹${totalVal.toFixed(2)}`;
   if (statTotalItems) statTotalItems.textContent = distinctItems;
   if (statTotalQty) statTotalQty.textContent = sumQty;
   if (statTopItem) {

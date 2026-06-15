@@ -97,7 +97,7 @@ function generateReceiptData(storage, roomCode, cartItems) {
           <span class="text-muted text-opacity-75" style="font-size: 0.75rem;">Category: ${item.category} | Added by ${item.addedBy}</span>
         </td>
         <td class="text-center py-2 text-muted align-middle small">${item.quantity}</td>
-        <td class="text-end py-2 fw-semibold text-dark align-middle small">$${itemTotal.toFixed(2)}</td>
+        <td class="text-end py-2 fw-semibold text-dark align-middle small">₹${itemTotal.toFixed(2)}</td>
       `;
       receiptTableBody.appendChild(tr);
     });
@@ -105,9 +105,9 @@ function generateReceiptData(storage, roomCode, cartItems) {
     const tax = subtotal * 0.10;
     const grandTotal = subtotal + tax;
 
-    if (receiptSubtotal) receiptSubtotal.textContent = `$${subtotal.toFixed(2)}`;
-    if (receiptTax) receiptTax.textContent = `$${tax.toFixed(2)}`;
-    if (receiptGrandTotal) receiptGrandTotal.textContent = `$${grandTotal.toFixed(2)}`;
+    if (receiptSubtotal) receiptSubtotal.textContent = `₹${subtotal.toFixed(2)}`;
+    if (receiptTax) receiptTax.textContent = `₹${tax.toFixed(2)}`;
+    if (receiptGrandTotal) receiptGrandTotal.textContent = `₹${grandTotal.toFixed(2)}`;
 
     // Generate Smart Expense Split
     const splits = {};
@@ -134,8 +134,8 @@ function generateReceiptData(storage, roomCode, cartItems) {
         row.innerHTML = `
           <span>👤 <strong class="text-secondary">${user}</strong></span>
           <span>
-            <strong class="text-dark">$${userTotal.toFixed(2)}</strong> 
-            <span class="text-muted text-opacity-50" style="font-size: 0.75rem;">($${userSubtotal.toFixed(2)} + $${userTax.toFixed(2)} tax)</span>
+            <strong class="text-dark">₹${userTotal.toFixed(2)}</strong> 
+            <span class="text-muted text-opacity-50" style="font-size: 0.75rem;">(₹${userSubtotal.toFixed(2)} + ₹${userTax.toFixed(2)} tax)</span>
           </span>
         `;
         receiptSplitContainer.appendChild(row);
@@ -194,7 +194,7 @@ function exportReceiptToPDF(room, cartItems) {
     doc.setFont('Helvetica', 'bold');
     doc.text('Product Name / Category', 20, 62);
     doc.text('Qty', 130, 62);
-    doc.text('Price ($)', 160, 62);
+    doc.text('Price (Rs.)', 160, 62);
     doc.line(20, 65, 190, 65);
 
     let yPosition = 72;
@@ -217,7 +217,7 @@ function exportReceiptToPDF(room, cartItems) {
       doc.setFontSize(10);
       doc.setTextColor(darkColor);
       doc.text(item.quantity.toString(), 132, yPosition + 2);
-      doc.text(`$${cost.toFixed(2)}`, 160, yPosition + 2);
+      doc.text(`Rs. ${cost.toFixed(2)}`, 160, yPosition + 2);
 
       // Separator
       doc.line(20, yPosition + 8, 190, yPosition + 8);
@@ -239,18 +239,18 @@ function exportReceiptToPDF(room, cartItems) {
 
     doc.setFont('Helvetica', 'normal');
     doc.text('Subtotal:', 120, yPosition);
-    doc.text(`$${subtotal.toFixed(2)}`, 160, yPosition);
+    doc.text(`Rs. ${subtotal.toFixed(2)}`, 160, yPosition);
 
     yPosition += 6;
     doc.text('Tax (10%):', 120, yPosition);
-    doc.text(`$${tax.toFixed(2)}`, 160, yPosition);
+    doc.text(`Rs. ${tax.toFixed(2)}`, 160, yPosition);
 
     yPosition += 8;
     doc.setFont('Helvetica', 'bold');
     doc.setTextColor(primaryColor);
     doc.setFontSize(12);
     doc.text('Grand Total:', 120, yPosition);
-    doc.text(`$${grandTotal.toFixed(2)}`, 160, yPosition);
+    doc.text(`Rs. ${grandTotal.toFixed(2)}`, 160, yPosition);
 
     // Add Smart Expense Split Section to PDF
     yPosition += 15;
@@ -283,7 +283,7 @@ function exportReceiptToPDF(room, cartItems) {
       const uTax = uSub * 0.10;
       const uTotal = uSub + uTax;
       doc.text(`User: ${user}`, 20, yPosition);
-      doc.text(`$${uTotal.toFixed(2)} ($${uSub.toFixed(2)} + $${uTax.toFixed(2)} tax)`, 120, yPosition);
+      doc.text(`Rs. ${uTotal.toFixed(2)} (Rs. ${uSub.toFixed(2)} + Rs. ${uTax.toFixed(2)} tax)`, 120, yPosition);
       yPosition += 6;
     });
 
